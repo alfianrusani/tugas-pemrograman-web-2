@@ -47,7 +47,7 @@ class ProductFactory extends Factory
 
         return [
             'name' => $product['name'] . ' ' . fake()->unique()->numberBetween(1, 999),
-            'price' => 'Rp ' . $product['price'],
+            'price' => $product['price'],
             'stock' => fake()->numberBetween(0, 50),
             'description' => $product['category'] . ' dengan kualitas baik',
             'status' => fake()->boolean(90),

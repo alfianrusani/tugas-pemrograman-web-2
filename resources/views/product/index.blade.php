@@ -16,6 +16,7 @@
                 {{ $product->stock }} --
                 {{ $product->description }} --
                 {{ $product->status ? 'Available' : 'Unavailable' }}
+                <a class="btn btn-warning btn-sm" href="{{ route('product.edit', $product->id) }}" role="button">Edit</a>
             </li>
         @endforeach
     </ul>
