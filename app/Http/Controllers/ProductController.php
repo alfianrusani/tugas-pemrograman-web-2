@@ -14,8 +14,8 @@ class ProductController extends Controller
     {
         return view('product.index', [
             'title' => 'Products',
-            'product' => Product::all(),
-            ]);
+            'product' => Product::latest('created_at')->get(),
+        ]);
     }
 
     /**
@@ -93,7 +93,7 @@ class ProductController extends Controller
             'description.required' => "Description must be filled",
         ]);
         $product->update($validated);
-        return to_route('product.index')->withSuccess('Product Succesfully Updated');
+        return to_route('product.index')->withSuccess('A Product Succesfully Updated');
     }
 
     /**
@@ -101,6 +101,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete($product);
+        return to_route('product.index')->withSuccess('A Product Succesfully Deleted');
     }
 }

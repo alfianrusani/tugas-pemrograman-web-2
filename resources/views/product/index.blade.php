@@ -17,6 +17,12 @@
                 {{ $product->description }} --
                 {{ $product->status ? 'Available' : 'Unavailable' }}
                 <a class="btn btn-warning btn-sm" href="{{ route('product.edit', $product->id) }}" role="button">Edit</a>
+                <form action="{{ route('product.delete', $product->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger btn-sm" type="submit"
+                        onclick="return confirm('Are you sure you want to delete this data?')">Delete</button>
+                </form>
             </li>
         @endforeach
     </ul>
