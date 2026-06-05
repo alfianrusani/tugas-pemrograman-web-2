@@ -12,6 +12,7 @@
             <li class="list-group-item">
                 {{ $loop->iteration }}.
                 {{ $product->name }} --
+                {{ $product->category->name }} --
                 {{ $product->price }} --
                 {{ $product->stock }} --
                 {{ $product->description }} --
