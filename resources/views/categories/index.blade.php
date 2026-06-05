@@ -25,6 +25,7 @@
                 {{ $category->code }} --
                 {{ $category->description }}
                 <a class="btn btn-warning btn-sm" href="{{ route('categories.edit', $category->id) }}" role="button">Edit</a>
+                <a class="btn btn-info btn-sm" href="{{ route('categories.show', $category->id) }}" role="button">Show</a>
                 <form action="{{ route ('categories.delete', $category->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
