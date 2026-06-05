@@ -14,10 +14,10 @@ Route::get('/categories/create', [CategoryController::class, 'create'])->name('c
 Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
 Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
 Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
-Route::get('/categories/{categories}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
 Route::put('/product/{product}', [ProductController::class, 'update'])->name('product.update');
-Route::put('/categories/{categories}', [CategoryController::class, 'update'])->name('categories.update');
+Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.delete');
-Route::delete('/categories/{categories}', [CategoryController::class, 'destroy'])->name('categories.delete');
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.delete');
 
 
