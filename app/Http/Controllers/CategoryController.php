@@ -7,14 +7,18 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+        $categories = Category::latest();
+        $keyword = request('keyword');
+
+        if ($keyword) {
+            $categories->where('name', 'like', '%' . $keyword . '%');
+        }
+
         return view('categories.index', [
             'title' => 'Category',
-            'categories' => Category::latest('created_at')->get(),
+            'categories' => $categories->paginate(5)->withQueryString(),
         ]);
     }
 

@@ -30,8 +30,8 @@ class CategorySeeder extends Seeder
         ]);
         Category::create([
             'name' => 'Monitor',
-            'code' => 'PRT',
-            'description' => 'Kategori untuk produk elektronik seperti printer.',
+            'code' => 'MON',
+            'description' => 'Kategori untuk produk elektronik seperti monitor.',
         ]);
         Category::create([
             'name' => 'Headset',

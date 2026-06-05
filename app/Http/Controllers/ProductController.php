@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,7 +24,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create', ['title' => 'Create Products']);
+        return view('product.create', [
+            'title' => 'Create Products',
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -33,6 +37,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer|min:0|max:999999999',
             'stock' => 'required|integer|min:0',
             'description' => 'required|string',
@@ -40,6 +45,8 @@ class ProductController extends Controller
         ], [
             'name.required' => "Product name must be filled",
             'name.max' => "Product name cannot be more than :max characters",
+            'category_id.required' => "Category must be selected",
+            'category_id.exists' => "Selected category is not found",
             'price.required' => "Price must be filled",
             'price.integer' => "Price must be a number",
             'price.min' => "Price cannot be negative",
@@ -66,7 +73,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('product.edit', ['title' => 'Edit Products', 'product' => $product]);
+        return view('product.edit', [
+            'title' => 'Edit Products',
+            'product' => $product,
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -76,6 +87,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer|min:0|max:999999999',
             'stock' => 'required|integer|min:0',
             'description' => 'required|string',
@@ -83,6 +95,8 @@ class ProductController extends Controller
         ], [
             'name.required' => "Product name must be filled",
             'name.max' => "Product name cannot be more than :max characters",
+            'category_id.required' => "Category must be selected",
+            'category_id.exists' => "Selected category is not found",
             'price.required' => "Price must be filled",
             'price.integer' => "Price must be a number",
             'price.min' => "Price cannot be negative",
