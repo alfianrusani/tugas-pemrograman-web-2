@@ -45,13 +45,22 @@ class ProductFactory extends Factory
         ];
 
         $product = fake()->randomElement($products);
+        $category = Category::where('name', $product['category'])->first();
+
+        if (!$category) {
+            $category = Category::create([
+                'name' => $product['category'],
+                'code' => strtoupper(substr($product['category'], 0, 3)),
+                'description' => 'Kategori ' . $product['category'],
+            ]);
+        }
 
         return [
-            'category_id' => Category::inRandomOrder()->first()->id,
             'name' => $product['name'] . ' ' . fake()->unique()->numberBetween(1, 999),
+            'category_id' => $category->id,
             'price' => $product['price'],
             'stock' => fake()->numberBetween(0, 50),
-            'description' => $product['category'] . ' dengan kualitas baik',
+            'description' => $category->name . ' dengan kualitas baik',
             'status' => fake()->boolean(90),
         ];
     }

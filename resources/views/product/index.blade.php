@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-4">
                 <select class="form-select" name="category_id">
-                    <option value="">Choose A Category</option>
+                    <option value="">All Category</option>
                     @foreach ($categories as $category)
                     <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
                         {{ $category->name }}
@@ -38,6 +38,7 @@
                 {{ $product->description }} --
                 {{ $product->status ? 'Available' : 'Unavailable' }}
                 <a class="btn btn-warning btn-sm" href="{{ route('product.edit', $product->id) }}" role="button">Edit</a>
+                <a class="btn btn-info btn-sm" href="{{ route('product.show', $product->id) }}" role="button">Show</a>
                 <form action="{{ route('product.delete', $product->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')

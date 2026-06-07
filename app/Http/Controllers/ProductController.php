@@ -28,7 +28,7 @@ class ProductController extends Controller
         return view('product.index', [
             'title' => 'Products',
             'products' => $products->paginate(5)->withQueryString(),
-            'categories' => Category::all(),
+            'categories' => Category::orderBy('id', 'desc')->get(),
         ]);
     }
 
@@ -39,7 +39,7 @@ class ProductController extends Controller
     {
         return view('product.create', [
             'title' => 'Create Products',
-            'categories' => Category::all(),
+            'categories' => Category::orderBy('id', 'desc')->get(),
         ]);
     }
     /**
@@ -77,7 +77,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('product.show', [
+            'title' => 'Show Product' . " " . $product->name,
+            'product' => $product,
+        ]);
     }
 
     /**
@@ -88,7 +91,7 @@ class ProductController extends Controller
         return view('product.edit', [
             'title' => 'Edit Products',
             'product' => $product,
-            'categories' => Category::all(),
+            'categories' => Category::orderBy('id', 'desc')->get(),
         ]);
     }
 
