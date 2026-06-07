@@ -4,10 +4,24 @@
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label for="name" class="form-label">Product's Name</label>
+            <label for="name" class="form-label" >Product's Name</label>
             <input type="string" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $product->name) }}">
             @error('name')
                 <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="stock" class="form-label">Product's Category</label>
+            <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
+                <option value="">Choose A Category</option>
+                @foreach ($categories as $category)
+                <option value="{{ $category->id }}" @selected(old('category_id', $product->category_id) == $category->id)>
+                    {{ $category->name }}
+                </option>
+                @endforeach
+            </select>
+            @error('category_id')
+            <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
         <div class="mb-3">

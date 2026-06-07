@@ -11,10 +11,10 @@
         </div>
         <div class="mb-3">
             <label for="stock" class="form-label">Product's Category</label>
-            <select class="form-select @error('category_id') is-invalid @enderror" name="category_id">
+            <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
                 <option value="">Choose A Category</option>
                 @foreach ($categories as $category)
-                <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                <option value="{{ $category->id }}">
                     {{ $category->name }}
                 </option>
                 @endforeach
