@@ -13,9 +13,22 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $products = Product::latest();
+        $keyword = request('keyword');
+        $category_id = request('category_id');
+
+        if ($keyword) {
+            $products->where('name', 'like', '%' . $keyword . '%');
+        }
+
+        if ($category_id) {
+            $products->where('category_id', $category_id);
+        }
+
         return view('product.index', [
             'title' => 'Products',
-            'product' => Product::latest('created_at')->get(),
+            'products' => $products->paginate(5)->withQueryString(),
+            'categories' => Category::all(),
         ]);
     }
 
