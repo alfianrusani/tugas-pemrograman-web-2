@@ -10,6 +10,20 @@
             @enderror
         </div>
         <div class="mb-3">
+            <label for="stock" class="form-label">Product's Category</label>
+            <select class="form-select @error('category_id') is-invalid @enderror" name="category_id">
+                <option value="">Choose A Category</option>
+                @foreach ($categories as $category)
+                <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
+                @endforeach
+            </select>
+            @error('category_id')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
             <label for="price" class="form-label">Product's Price</label>
             <input type="unsignedInteger" class="form-control @error('price') is-invalid @enderror" id="price"
                 name="price">
@@ -27,7 +41,7 @@
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Product's Description</label>
-            <input type="text" class="form-control" id="description" name="description">
+            <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description">
             @error('description')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror

@@ -42,7 +42,6 @@ class ProductController extends Controller
             'categories' => Category::all(),
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      */
