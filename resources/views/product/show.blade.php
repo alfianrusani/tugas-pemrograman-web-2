@@ -10,6 +10,7 @@
         <li class="list-group-item">Price: Rp.{{ $product->price }}</li>
         <li class="list-group-item">Stock: {{ $product->stock }}</li>
         <li class="list-group-item">Description: {{ $product->description }}</li>
+        <li class="list-group-item">Brand: {{ $product->brand }}</li>
         <li class="list-group-item">Status: {{ $product->status ? 'Available' : 'Unavailable' }}</li>
         <li class="list-group-item">Created At: {{ $product->created_at->format('d F Y H:i:s') }}</li>
         <li class="list-group-item">Updated At: {{ $product->updated_at-> format('d F Y H:i:s') }}</li>

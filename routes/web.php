@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [ProductController::class, 'index']);
-Route::get('/', [CategoryController::class, 'index']);
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');

@@ -53,6 +53,7 @@ class ProductController extends Controller
             'price' => 'required|integer|min:0|max:999999999',
             'stock' => 'required|integer|min:0',
             'description' => 'required|string',
+            'brand' => 'required|string|max:255',
             'status' => 'nullable|boolean',
         ], [
             'name.required' => "Product name must be filled",
@@ -67,6 +68,8 @@ class ProductController extends Controller
             'stock.integer' => "Stock must be a number",
             'stock.min' => "Stock cannot be negative",
             'description.required' => "Description must be filled",
+            'brand.required' => "Brand must be filled",
+            'brand.max' => "Brand cannot be more than :max characters",
         ]);
         Product::create($validated);
         return to_route('product.index')->withSuccess('Product Succesfully Added');
@@ -106,6 +109,7 @@ class ProductController extends Controller
             'price' => 'required|integer|min:0|max:999999999',
             'stock' => 'required|integer|min:0',
             'description' => 'required|string',
+            'brand' => 'required|string|max:255',
             'status' => 'nullable|boolean',
         ], [
             'name.required' => "Product name must be filled",
@@ -120,6 +124,8 @@ class ProductController extends Controller
             'stock.integer' => "Stock must be a number",
             'stock.min' => "Stock cannot be negative",
             'description.required' => "Description must be filled",
+            'brand.required' => "Brand must be filled",
+            'brand.max' => "Brand cannot be more than :max characters",
         ]);
         $product->update($validated);
         return to_route('product.index')->withSuccess('A Product Succesfully Updated');

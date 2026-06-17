@@ -48,6 +48,13 @@
             @enderror
         </div>
         <div class="mb-3">
+            <label for="brand" class="form-label">Product's Brand</label>
+            <input type="text" class="form-control" id="brand" name="brand" value="{{ old('brand', $product->brand) }}">
+            @error('brand')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
             <input type="hidden" name="status" value="0">
             <input class="form-check-input" type="checkbox" name="status" value="1"
                 {{ old('status', $product->status) ? 'checked' : '' }}>
