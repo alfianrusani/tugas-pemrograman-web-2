@@ -43,7 +43,7 @@ class ProductController extends Controller
             'categories' => Category::orderBy('id', 'desc')->get(),
         ]);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -132,24 +132,28 @@ class ProductController extends Controller
             'description' => 'required|string',
             'brand' => 'required|string|max:255',
             'status' => 'nullable|boolean',
-        ], [
-            'name.required' => "Product name must be filled",
-            'name.max' => "Product name cannot be more than :max characters",
-            'category_id.required' => "Category must be selected",
-            'category_id.exists' => "Selected category is not found",
-            'price.required' => "Price must be filled",
-            'price.integer' => "Price must be a number",
-            'price.min' => "Price cannot be negative",
-            'price.max' => "Price is too large",
-            'stock.required' => "Stock must be filled",
-            'stock.integer' => "Stock must be a number",
-            'stock.min' => "Stock cannot be negative",
-            'description.required' => "Description must be filled",
-            'brand.required' => "Brand must be filled",
-            'brand.max' => "Brand cannot be more than :max characters",
         ]);
-        $product->update($validated);
-        return to_route('product.index')->withSuccess('A Product Succesfully Updated');
+
+        try {
+            DB::beginTransaction();
+
+            $product->update($validated);
+
+            DB::commit();
+
+            return to_route('product.index')
+                ->withSuccess('Product Successfully Updated');
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'error' => $e->getMessage()
+                ]);
+        }
     }
 
     /**
