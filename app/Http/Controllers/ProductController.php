@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest();
+        $products = Product::query()->latest();
         $keyword = request('keyword');
         $category_id = request('category_id');
 
