@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -42,6 +43,7 @@ class ProductController extends Controller
             'categories' => Category::orderBy('id', 'desc')->get(),
         ]);
     }
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -71,8 +73,27 @@ class ProductController extends Controller
             'brand.required' => "Brand must be filled",
             'brand.max' => "Brand cannot be more than :max characters",
         ]);
-        Product::create($validated);
-        return to_route('product.index')->withSuccess('Product Succesfully Added');
+
+        try {
+            DB::beginTransaction();
+
+            Product::create($validated);
+
+            DB::commit();
+
+            return to_route('product.index')
+                ->withSuccess('Product Successfully Added');
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'error' => $e->getMessage()
+                ]);
+        }
     }
 
     /**
