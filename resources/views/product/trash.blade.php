@@ -30,6 +30,8 @@
                 {{ $product->description }} --
                 {{ $product->brand }} --
                 {{ $product->status ? 'Available' : 'Unavailable' }}
+                <a class="btn btn-warning btn-sm" href="{{ route('product.restore', $product->id) }}"role="button"
+                    onclick="return confirm('Are you sure you want to restore this data?')">Restore</a>
             </li>
         @empty
             <li class="list-group-item text-danger text-center">Product is not found</li>

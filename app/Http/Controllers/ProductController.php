@@ -174,6 +174,33 @@ class ProductController extends Controller
     }
 
     /**
+     * Restore the specified resource from trash page to index page.
+     */
+    public function restore($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $product = Product::onlyTrashed()->findOrFail($id);
+
+            $product->restore();
+
+            DB::commit();
+
+            return to_route('product.trash')
+                ->withSuccess('Product Successfully Restored');
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()->withErrors([
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product)
