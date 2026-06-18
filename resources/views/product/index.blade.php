@@ -6,6 +6,7 @@
         </div>
     @endsession
     <a class="btn btn-primary mb-3" href="{{ route('product.create') }}" role="button">Create</a>
+    <a class="btn btn-warning mb-3" href="{{ route('product.trash') }}" role="button">Trash</a>
     <form action="">
         <div class="row g-3 mb-3">
             <div class="col-md-4">

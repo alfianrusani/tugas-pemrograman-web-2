@@ -157,6 +157,23 @@ class ProductController extends Controller
     }
 
     /**
+     * Remove the specified resource from index and put it in trash page.
+     */
+    public function trash()
+    {
+        $products = Product::onlyTrashed()->latest();
+        $keyword = request('keyword');
+
+        if ($keyword) {
+            $products->where('name', 'like', '%' . $keyword . '%');
+        }
+        return view('product.trash', [
+            'title' => 'Trash Product',
+            'products' => $products->paginate(5)->withQueryString(),
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product)

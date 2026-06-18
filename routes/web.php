@@ -12,6 +12,7 @@ Route::get('/product/create', [ProductController::class, 'create'])->name('produ
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
 Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
 Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
+Route::get('/product/trash', [ProductController::class, 'trash'])->name('product.trash');
 Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
 Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
