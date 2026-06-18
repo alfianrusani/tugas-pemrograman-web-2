@@ -31,7 +31,13 @@
                 {{ $product->brand }} --
                 {{ $product->status ? 'Available' : 'Unavailable' }}
                 <a class="btn btn-warning btn-sm" href="{{ route('product.restore', $product->id) }}"role="button"
-                    onclick="return confirm('Are you sure you want to restore this data?')">Restore</a>
+                    onclick="return confirm('Are you sure you want to restore this item?')">Restore</a>
+                <form action="{{ route('product.forceDelete', $product->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger btn-sm" type="submit"
+                        onclick="return confirm('Are you sure you want to permanently delete this item?')">Delete</button>
+                </form>
             </li>
         @empty
             <li class="list-group-item text-danger text-center">Product is not found</li>

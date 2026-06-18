@@ -206,6 +206,33 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete($product);
-        return to_route('product.index')->withSuccess('A Product Succesfully Deleted');
+        return to_route('product.index')->withSuccess('Product Has Been Moved to Trash');
+    }
+
+    /**
+     * Permanently delete the specified resource from storage.
+     */
+    public function forceDelete($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $product = Product::onlyTrashed()->findOrFail($id);
+
+            $product->forceDelete();
+
+            DB::commit();
+
+            return to_route('product.trash')
+                ->withSuccess('Product Permanently Deleted');
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()->withErrors([
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }
